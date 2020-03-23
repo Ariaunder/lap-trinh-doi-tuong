@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+		<div class="mobile" >
+			<button id="power" onclick="power()">power</button>
+			<div id="tat">
+				<div class="title_name" id="lenovo-name">Mobile</div>
+				<div class="inbox" id="lenovo-inbox">haha</div>
+				<div class="outbox" id="lenovo-outbox"></div>
+				<input type="text" name="" class="msg" placeholder="message
+			" oninput="mobile1.writeMsg(this.value)" id="lenovo-msg">
+				<button class="send" onclick="sendMess(mobile1,mobile2)">send</button>
+			</div>
+		</div>
+
+		<div class="mobile2" class="samsung">
+			<div class="title_name2" id="samsung-name">Mobile 2</div>
+			<div class="inbox" id="samsung-inbox"></div>
+			<div class="outbox" id="samsung-outbox"></div>
+			<div id="battery-samsung" >100%</div>
+			<input type="text" name="" class="msg2" placeholder="message
+			" oninput="mobile2.writeMsg(this.value)" id="samsung-msg">
+			<button class="send" onclick="sendMess(mobile2,mobile1)">send</button>
+		</div>
+
+	<script type="text/javascript">
+		class Mobile{
+			constructor(name){
+				this.name = name;
+				this.battery = 100;
+				// this.power = true;
+				this.msg = "";
+				this.inbox = [];
+				this.outbox = [];
+			}
+			writeMsg(value){
+				this.msg = value;
+			}
+			receiveMsg(name,msg){
+				this.inbox.push(name+":"+msg);
+			}
+			sendMsg(mobile){
+				mobile.receiveMsg(this.name,this.msg);
+				this.outbox.push(this.msg);
+				this.battery--;
+
+			}
+		}
+		function power(){
+
+			// document.getElementById("bat").style.display = "block";
+			let turn =1;
+
+			if (turn === 1) {
+				document.getElementById("tat").style.display = "none";
+				turn = 2;
+			} else {
+				document.getElementById("tat").style.display = "block";
+				turn = 1;
+			}
+		}
+		let mobile1 = new Mobile("samsung");
+		let mobile2 = new Mobile("leonovo");
+		function sendMess(m1,m2){
+			m1.sendMsg(m2);
+			document.getElementById("iphone-inbox").innerHTML = mobile1.inbox;
+			document.getElementById("iphone-outbox").innerHTML = mobile1.outbox;
+			document.getElementById("samsung-inbox").innerHTML = mobile2.inbox;
+			document.getElementById("samsung-outbox").innerHTML = mobile2.outbox;
+			document.getElementById("battery-samsung").innerHTML = mobile2.battery + "%";
+			document.getElementById("iphone-msg").value = "";
+			document.getElementById("samsung-msg").value = "";
+
+		}
+
+	</script>
+</body>
+</html>
